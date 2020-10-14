@@ -117,9 +117,9 @@
 			// load a file into an audio buffer and then link it to a track...<br>
 			//<br>
 			await fetch('assets/A3.mp3')<br>
-			&nbsp;&nbsp;&nbsp;.then(mp3 => mp3.arrayBuffer())<br>
-			&nbsp;&nbsp;&nbsp;.then(mp3Buf => this.audioCtx2.decodeAudioData(mp3Buf))<br>
-			&nbsp;&nbsp;&nbsp;.then(audioBuf => this.mp3Track2Buf = audioBuf);<br>
+			<span class="tab20"></span>.then(mp3 => mp3.arrayBuffer())<br>
+			<span class="tab20"></span>.then(mp3Buf => this.audioCtx2.decodeAudioData(mp3Buf))<br>
+			<span class="tab20"></span>.then(audioBuf => this.mp3Track2Buf = audioBuf);<br>
 
 			this.mp3Track2 = this.audioCtx2.createBufferSource();<br>
 			this.mp3Track2.buffer = this.mp3Track2Buf;<br>
@@ -182,16 +182,16 @@
 
 		<p class="helpCode">
 			toggleMp4Play = () => &#123;<br>
-			  &nbsp;&nbsp;&nbsp;if (this.mp4IsPlaying) &#123;<br>
-			    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.mp4Track1.mediaElement.pause();<br>
-			    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.mp4IsPlaying = false;<br>
-			  &nbsp;&nbsp;&nbsp;} else if (this.audioCtx3.state === 'suspended') &#123;<br>
-			    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.audioCtx3.resume();<br>
-			    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.mp4IsPlaying = true;<br>
-			  &nbsp;&nbsp;&nbsp;} else &#123;<br>
-			    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.playMp4();<br>
-			    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.mp4IsPlaying = true;<br>
-			  &nbsp;&nbsp;&nbsp;}<br>
+			  <span class="tab20"></span>if (this.mp4IsPlaying) &#123;<br>
+			    <span class="tab40"></span>this.mp4Track1.mediaElement.pause();<br>
+			    <span class="tab40"></span>this.mp4IsPlaying = false;<br>
+			  <span class="tab20"></span>} else if (this.audioCtx3.state === 'suspended') &#123;<br>
+			    <span class="tab40"></span>this.audioCtx3.resume();<br>
+			    <span class="tab40"></span>this.mp4IsPlaying = true;<br>
+			  <span class="tab20"></span>} else &#123;<br>
+			    <span class="tab40"></span>this.playMp4();<br>
+			    <span class="tab40"></span>this.mp4IsPlaying = true;<br>
+			  <span class="tab20"></span>}<br>
 			}<br>
 		</p>
 
