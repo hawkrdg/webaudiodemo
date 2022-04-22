@@ -1,0 +1,78 @@
+// @use "./app/material/themes/blue-dark.scss" as theme;
+// @use "./app/material/themes/blue-light.scss" as theme;
+// @use "./app/material/themes/bluegrey-dark.scss" as theme;
+// @use "./app/material/themes/bluegrey-light.scss" as theme;
+// @use "./app/material/themes/brick-dark.scss" as theme;
+@use "./app/material/themes/brick-light.scss" as theme;
+// @use "./app/material/themes/brown-dark.scss" as theme;
+// @use "./app/material/themes/brown-light.scss" as theme;
+// @use "./app/material/themes/cyan-dark.scss" as theme;
+// @use "./app/material/themes/cyan-light.scss" as theme;
+// @use "./app/material/themes/green-dark.scss" as theme;
+// @use "./app/material/themes/green-light.scss" as theme;
+// @use "./app/material/themes/lime-dark.scss" as theme;
+// @use "./app/material/themes/lime-light.scss" as theme;
+// @use "./app/material/themes/teal-dark.scss" as theme;
+// @use "./app/material/themes/teal-light.scss" as theme;
+@use "./app/material/fonts/material-fonts.css";
+
+
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+body {
+	background: linear-gradient(to bottom right, #cc3300 0%, #442200 100%);
+	// added to stop expanding margin issue
+	display: inline-block;
+	overflow: hidden;
+}
+
+div {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.centered {
+	text-align: center;
+}
+
+// scrollbars
+//
+:root, div {
+	scrollbar-width: auto;
+  scrollbar-color: theme.$color-accent rgba(0, 0, 0, .13);
+}
+::-webkit-scrollbar {
+	width: 16px;
+	height: 16px;
+}
+::-webkit-scrollbar-track {
+	background-color: rgba(0, 0, 0, 0.4);
+}
+::-webkit-scrollbar-thumb {
+  background-color: theme.$color-accent;
+	border-radius: 4px;
+}
+
+// indent <span> classes
+//
+.tab20 {
+	display: inline-block;
+	width: 20px;
+}
+.tab40 {
+	display: inline-block;
+	width: 40px;
+}
+.tab60 {
+	display: inline-block;
+	width: 60px;
+}
+.tab80 {
+	display: inline-block;
+	width: 80px;
+}

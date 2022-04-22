@@ -1,0 +1,286 @@
+<div class="wrapper mat-typography">
+	<div class="banner1">
+		&lt;audio&gt; & &lt;video&gt; tags: easy to use, but lack complex control of media.
+		<button class="helpButton" mat-raised-button color="primary" (click)="openHelp()">Help</button>
+	</div>
+  <div class="banner1">
+		WebAudio is much more versatile. Can handle multiple complex channels with effects.
+	</div>
+
+  <div class="banner1">
+    HTML tags <mat-slide-toggle color="primary" (change)="useWebAudio = !useWebAudio"></mat-slide-toggle> WebAudio
+    <!-- HTML tags <mat-slide-toggle color="primary" (change)="toggleWebAudio()"></mat-slide-toggle> WebAudio -->
+  </div>
+
+  <!-- using HTML tags -->
+	<div class="mediaContainer" *ngIf="!useWebAudio">
+    <div class="audioContainer">
+      <div class="audioCtx">
+          C4 (261.626 Hz): <audio #audio1 controls preload="auto" src="assets/C4.mp3" type="audio/mp3"></audio>
+      </div>
+      <div class="audioCtx">
+        A3 (220.000 Hz): <audio #audio2 controls preload="auto" src="assets/A3.mp3" type="audio/mp3"></audio>
+      </div>
+    </div>
+
+		<video #video1 class="" width="340" height="195" controls>
+      <source src="assets/Ana Vidovic _ Altiplanos (Pierre Bensusan) _ HD.mp4" type="video/mp4">
+    </video>
+	</div>
+
+  <!-- using WebAudio -->
+  <div class="webAudioContainer" [ngClass]="{'hidden': !useWebAudio}">
+  <!-- <div class="webAudioContainer" > -->
+    <div class="mediaContainer">
+      <div class="audioContainer">
+        <div class="audioCtx">
+          C4 (261.626 Hz): <audio #webaudio1 controls preload="auto" src="assets/C4.mp3" type="audio/mp3"></audio>
+        </div>
+        <div class="audioCtx">
+          A3 (220.000 Hz): <audio #webaudio2 controls preload="auto" src="assets/A3.mp3" type="audio/mp3"></audio>
+        </div>
+      </div>
+
+      <video #webvideo1 class="" width="340" height="195" controls>
+        <source src="assets/Ana Vidovic _ Altiplanos (Pierre Bensusan) _ HD.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+	<div class="webAudioContainer" [ngClass]="{'hidden': !useWebAudio}">
+    <div class="audioTagControls">
+      <span class="banner1">C4 Tag Controls</span>
+      <div class="level">
+        Level: <mat-slider color="primary" min="0" max="1" step="0.05" [(ngModel)]="c4Level" (change)="setC4Level()"></mat-slider> {{c4Level}}
+      </div>
+      <div class="pan">
+        Pan: <mat-slider color="primary" min="-1.0" max="1.0" step="0.2" [(ngModel)]="c4Pan" (change)="setC4Pan()"></mat-slider> {{c4Pan}}
+      </div>
+      <div class="play">
+        <div class="reverb">
+          Reverb: <mat-slide-toggle color="primary"	[(ngModel)]="c4Reverb" (change)="toggleC4Reverb()"></mat-slide-toggle>
+        </div>
+        <button class="audioTagButton" mat-mini-fab color="primary" title="Play/Pause..." (click)="playC4()">
+          {{c4IsPlaying ? '||' : '>'}}
+        </button>
+      </div>
+    </div>
+
+    <div class="audioTagControls">
+      <span class="banner1">A3 Tag Controls</span>
+      <div class="level">
+        Level: <mat-slider color="primary" min="0" max="1" step="0.05" [(ngModel)]="a3Level" (change)="setA3Level()"></mat-slider> {{a3Level}}
+      </div>
+      <div class="pan">
+        Pan: <mat-slider color="primary" min="-1.0" max="1.0" step="0.2" [(ngModel)]="a3Pan" (change)="setA3Pan()"></mat-slider> {{a3Pan}}
+      </div>
+      <div class="play">
+        <div class="reverb">
+          Reverb: <mat-slide-toggle color="primary"	[(ngModel)]="a3Reverb" (change)="toggleA3Reverb()"></mat-slide-toggle>
+        </div>
+        <button class="audioTagButton" mat-mini-fab color="primary" title="Play/Pause..." (click)="playA3()">
+          {{a3IsPlaying ? '||' : '>'}}
+        </button>
+      </div>
+    </div>
+
+    <div class="bufferControls">
+      <span class="banner1">Audio Buffer Controls</span>
+      <div class="level">
+        Level: <mat-slider color="primary" min="0" max="1" step="0.05" [(ngModel)]="bufferLevel" (change)="setBufferLevel()"></mat-slider> {{bufferLevel}}
+      </div>
+      <div class="pan">
+        Pan: <mat-slider color="primary" min="-1.0" max="1.0" step="0.2" [(ngModel)]="bufferPan" (change)="setBufferPan()"></mat-slider> {{bufferPan}}
+      </div>
+      <div class="play">
+        <div class="reverb">
+          Reverb: <mat-slide-toggle color="primary"	[(ngModel)]="bufferReverb" (change)="toggleBufferReverb()"></mat-slide-toggle>
+        </div>
+        <button class="audioTagButton" mat-mini-fab color="primary" title="Play..." [disabled]="bufferIsPlaying" (click)="playBuffer()">
+          &gt;
+        </button>
+      </div>
+    </div>
+
+    <div class="videoTagControls">
+      <span class="banner1">&lt;video&gt; Tag Controls</span>
+      <div class="level">
+        Level: <mat-slider color="primary" min="0" max="1" step="0.05" [(ngModel)]="videoTagLevel" (change)="setVideoTagLevel()"></mat-slider> {{videoTagLevel}}
+      </div>
+      <!-- <div class="pan">
+        Pan: <mat-slider color="primary" min="-1.0" max="1.0" step="0.2" [(ngModel)]="videoTagPan" (change)="setVideoTagPan()"></mat-slider> {{videoTagPan}}
+      </div> -->
+      <div class="seek">
+        Seek: <mat-slider color="primary" min="0" [max]="videoTagLength" step="1" [(ngModel)]="videoTagTime" (change)="setVideoTagTime()"></mat-slider> {{videoTagTime.toFixed(1)}}
+      </div>
+      <div class="play">
+        <button class="audioTagButton" mat-mini-fab color="primary" title="Play/Pause..." (click)="playVideoTag()">
+          {{videoTagIsPlaying ? '||' : '>'}}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- the help stuff... -->
+	<div class="helpContainer" *ngIf="showHelp">
+		<button mat-raised-button color="primary" (click)="closeHelp()">Close</button>
+		<h1>Web Audio Mini Course - An Angular.io Demo</h1>
+
+		<h3>Concepts</h3>
+
+		<p class="helpText">
+			HTML has both the &lt;audio&gt; and &lt;video&gt; elements which easily allow playing both audio & video
+			content with controls. These elements are easy to incorporate into a page but do not offer a
+			lot of control over the media.
+		</p>
+
+		<p class="helpText">
+			The WebAudio API allows for much more control over audio. Not only does it allow for different sources and outputs, it also can include full effects and control chains as well as analytics and complex processing of audio streams. One can easily build say a 32-channel mixer board with individual EQ, PAN, REVERB and pipe this to a multiple bus output or build a complex synthesizer using sine/square/triangle/ramp/lfo oscillators and other effects.
+		</p>
+
+	<!-- simple example -->
+		<h3>A Simple Example</h3>
+
+		<p class="helpText">
+			Any application starts with an instance of an AudioContext (or an OfflineAudioContext for off- line processing). The audio context allows the creation of audio ‘nodes’ which are connected to form one or more audio ‘graphs’. These graphs can be played or saved for further processing.
+		</p>
+
+		<p class="helpCode">
+			Const audioCtx = new window.AudioContext();
+		</p>
+
+		<p class="helpText">
+			The audio context controls the routing and interaction of the nodes and for this example we will be using 2 channels for stereo although more channels are supported:
+		</p>
+
+		<img src="assets/webaudio.png">
+
+	<!-- inputs -->
+		<h3>Inputs</h3>
+
+		<p class="helpText">
+			There are various ways to get input. We can put a track into an &lt;audio&gt; element and then grab it:
+		</p>
+
+		<p class="helpCode">
+			// grab an audio element...<br>
+			//<br>
+			&lt;audio src=”assets/C4.mp3”&gt;&lt;/audio&gt;<br><br>
+			const audioEl = document.querySelector('audio');<br>
+			const mp3Track = audioCtx.createMediaElementSource(audioEl);<br>
+		</p>
+
+		<p class="helpText">
+			We now have an input node. OR we can load a buffer directly and put it in a buffer source node:
+		</p>
+
+		<p class="helpCode">
+			// load a file into an audio buffer and then link it to a track...<br>
+			//<br>
+			await fetch('assets/A3.mp3')<br>
+			<span class="tab20"></span>.then(mp3 => mp3.arrayBuffer())<br>
+			<span class="tab20"></span>.then(mp3Buf => this.audioCtx2.decodeAudioData(mp3Buf))<br>
+			<span class="tab20"></span>.then(audioBuf => this.mp3Track2Buf = audioBuf);<br>
+
+			this.mp3Track2 = this.audioCtx2.createBufferSource();<br>
+			this.mp3Track2.buffer = this.mp3Track2Buf;<br>
+		</p>
+
+		<p class="helpText">
+			There are other input types including oscillators and wave generators.
+		</p>
+
+	<!-- outputs -->
+		<h3>Outputs</h3>
+
+		<p class="helpText">
+			The audio context has a destination property – this is typically the speakers but can be files or streams. This demo uses the speakers.
+		</p>
+
+	<!-- in between -->
+		<h3>In Between</h3>
+
+		<p class="helpText">
+			The audio context offers many filters, effects, generators, side chains, and routing. Very complex audio systems can be created. These nodes are inserted between the input and output
+		</p>
+
+		<p class="helpText">
+			This demo uses:
+		</p>
+
+		<ul>
+			<li>a gainNode – control the downstream level from 0 (muted) to 1 (full)</li>
+			<li>a stereoPannerNode – control the levels of both left & right channels from -1 (full left) to 1 (full right)</li>
+			<li>
+				a convolverNode – this is a complex filter which we use for reverb. An impulse-response waveform is used to adjust the original source to mimic a particular environment.
+			</li>
+			<li>We also implement a ‘seek’ control by directly adjusting the .currentTime property on the playback</li>
+		</ul>
+
+
+	<!-- tying it together -->
+		<h3>Tying It Together</h3>
+
+		<p class="helpText">
+			The nodes are chained by
+		</p>
+
+		<p class="helpCode">
+			inputNode.connect(gainNode).connect(stereoPannerNode).connect(ctx.destination);
+		</p>
+
+		<p class="helpText">
+			and the reverb node is inserted after the stereoPannerNode when toggled on.
+		</p>
+
+
+	<!-- playback -->
+		<h3>Playback</h3>
+
+		<p class="helpText">
+			The following button (click)="toggleMp4Play()" code controls the button text and plays the video. We need to test whether or not the source is already playing. Mp4IsPlaying is a flag property to control the button text:
+		</p>
+
+		<p class="helpCode">
+			toggleMp4Play = () => &#123;<br>
+			  <span class="tab20"></span>if (this.mp4IsPlaying) &#123;<br>
+			    <span class="tab40"></span>this.mp4Track1.mediaElement.pause();<br>
+			    <span class="tab40"></span>this.mp4IsPlaying = false;<br>
+			  <span class="tab20"></span>} else &#123;<br>
+			    <span class="tab40"></span>this.playMp4();<br>
+			    <span class="tab40"></span>this.mp4IsPlaying = true;<br>
+			  <span class="tab20"></span>}<br>
+			}<br>
+		</p>
+
+		<p class="helpText">
+			this.playMp4 chains the nodes together and then calls
+		</p>
+
+		<p class="helpCode">
+			this.mp4Track1.mediaElement.play();
+		</p>
+
+
+	<!-- summary -->
+		<h3>Summary</h3>
+
+		<p class="helpText">
+			This is a very cursory look at the WebAudio API. This simple example will go a long way to adding audio to apps. This is a typical angular.io app and uses @angular/material so make sure to: ng add @angular/material.
+		</p>
+
+		<p class="helpText">
+			And a very good place to start learning about the WebAudio API would be:
+		</p>
+
+		<p class="helpText">
+			<a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API" target="_blank">
+				MDN Using Web Audio
+			</a>
+		</p>
+
+		<p>&nbsp;</p>
+
+	</div>
+
+</div>

@@ -1,0 +1,125 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+// set palettes, uncomment one color...
+
+//-- blue --
+// $primary: mat.define-palette(mat.$blue-palette, 800, 200, 900);
+// $accent: mat.define-palette(mat.$yellow-palette, A700, A100, 800);
+// $warn: mat.define-palette(mat.$deep-orange-palette, A400, A200, 700);
+
+//-- bluegrey --
+// $primary: mat.define-palette(mat.$blue-grey-palette, 600, 200, 700);
+// $accent: mat.define-palette(mat.$yellow-palette, A700, A100, 800);
+// $warn: mat.define-palette(mat.$deep-orange-palette, A400, A200, 700);
+
+//-- brick --
+// $primary: mat.define-palette(mat.$red-palette, 900, 200, 900);
+// $accent: mat.define-palette(mat.$yellow-palette, A700, A100, 800);
+// $warn: mat.define-palette(mat.$deep-orange-palette, A400, A200, 700);
+
+//-- brown --
+// $primary: mat.define-palette(mat.$brown-palette, 600, 200, 800);
+// $accent: mat.define-palette(mat.$yellow-palette, A700, A100, 800);
+// $warn: mat.define-palette(mat.$deep-orange-palette, A400, A200, 700);
+
+//-- cyan --
+// $primary: mat.define-palette(mat.$cyan-palette, 800, 100, 900);
+// $accent: mat.define-palette(mat.$yellow-palette, A700, A100, 800);
+// $warn: mat.define-palette(mat.$deep-orange-palette, A400, A200, 700);
+
+//-- green --
+// $primary: mat.define-palette(mat.$green-palette, 700, 100, 900);
+// $accent: mat.define-palette(mat.$yellow-palette, A700, A100, 800);
+// $warn: mat.define-palette(mat.$deep-orange-palette, A400, A200, 700);
+
+//-- lime --
+$primary: mat.define-palette(mat.$lime-palette, 500, 100, 800);
+$accent: mat.define-palette(mat.$yellow-palette, A700, A100, 800);
+$warn: mat.define-palette(mat.$deep-orange-palette, A400, A200, 700);
+
+//-- teal --
+// $primary: mat.define-palette(mat.$teal-palette, 700, 100, 900);
+// $accent: mat.define-palette(mat.$yellow-palette, A700, A100, 800);
+// $warn: mat.define-palette(mat.$deep-orange-palette, A400, A200, 700);
+
+
+// define theme colors for export...
+
+$color-primary: mat.get-color-from-palette($primary, 700);
+$color-primary-darker: mat.get-color-from-palette($primary, darker);
+$color-primary-lighter: mat.get-color-from-palette($primary, lighter);
+$color-primary-contrast: mat.get-color-from-palette($primary, 700-contrast);
+
+$color-accent: mat.get-color-from-palette($accent, A700);
+$color-accent-darker: mat.get-color-from-palette($accent, darker);
+$color-accent-lighter: mat.get-color-from-palette($accent, lighter);
+$color-accent-contrast: mat.get-color-from-palette($accent, A700-contrast);
+
+$color-warn: mat.get-color-from-palette($warn, A400);
+$color-warn-contrast: mat.get-color-from-palette($warn, A400-contrast);
+
+// define fonts...
+
+$my-typography: mat.define-typography-config(
+	 $font-family: 'Barlow',
+	 $display-4:     mat.define-typography-level(60px, 60px, 300, $letter-spacing: -0.05em),
+   $display-3:     mat.define-typography-level(48px, 48px, 400, $letter-spacing: -0.02em),
+   $display-2:     mat.define-typography-level(36px, 38px, 400, $letter-spacing: -0.005em),
+   $display-1:     mat.define-typography-level(28px, 36px, 400),
+   $headline:      mat.define-typography-level(24px, 28px, 400),
+   $title:         mat.define-typography-level(24px, 28px, 500),
+   $subheading-2:  mat.define-typography-level(24px, 26px, 400),
+   $subheading-1:  mat.define-typography-level(20px, 24px, 400),
+   $body-2:        mat.define-typography-level(20px, 24px, 500),
+   $body-1:        mat.define-typography-level(18px, 20px, 400),
+   $caption:       mat.define-typography-level(14px, 20px, 400),
+   $button:        mat.define-typography-level(18px, 18px, 500),
+   // Line-height must be unit-less fraction of the font-size.
+	 $input:         mat.define-typography-level(inherit, 1, 400)
+   // $input:         mat.define-typography-level(inherit, 1.125, 400)
+);
+
+// $my-typography: mat.define-typography-config(
+// 	 $font-family: 'Roboto',
+// 	 $display-4:     define-typography-level(112px, 112px, 300, $letter-spacing: -0.05em),
+//    $display-3:     define-typography-level(56px, 56px, 400, $letter-spacing: -0.02em),
+//    $display-2:     define-typography-level(45px, 48px, 400, $letter-spacing: -0.005em),
+//    $display-1:     define-typography-level(34px, 40px, 400),
+//    $headline:      define-typography-level(24px, 32px, 400),
+//    $title:         define-typography-level(20px, 32px, 500),
+//    $subheading-2:  define-typography-level(16px, 28px, 400),
+//    $subheading-1:  define-typography-level(15px, 24px, 400),
+//    $body-2:        define-typography-level(14px, 24px, 500),
+//    $body-1:        define-typography-level(14px, 20px, 400),
+//    $caption:       define-typography-level(12px, 20px, 400),
+//    $button:        define-typography-level(14px, 14px, 500),
+//    // Line-height must be unit-less fraction of the font-size.
+//    $input:         define-typography-level(inherit, 1.125, 400)
+// );
+
+// create the theme, uncomment dark or light...
+
+// $my-theme: mat.define-light-theme((
+//  color: (
+//    primary: $primary,
+//    accent: $accent,
+//    warn: $warn,
+//  )
+// ));
+
+$my-theme: mat.define-dark-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  ),
+  typography: $my-typography
+));
+
+// Emit theme-dependent styles for common features used across multiple components.
+
+@include mat.core-theme($my-theme);
+@include mat.all-component-themes($my-theme);
+@include mat.all-component-colors($my-theme);
+@include mat.all-component-typographies($my-theme);
