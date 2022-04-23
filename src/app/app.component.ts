@@ -15,6 +15,7 @@ export class AppComponent {
   @ViewChild('webaudio1') webaudio1!: ElementRef;
   @ViewChild('webaudio2') webaudio2!: ElementRef;
   @ViewChild('webvideo1') webvideo1!: ElementRef;
+  @ViewChild('seekSlider') seekSlider!: ElementRef;
 
   //-- create AudioContext, GainNodes, PannerNodes, ReverbNodes...
   //
@@ -64,6 +65,8 @@ export class AppComponent {
   a3IsPlaying = false;
   bufferIsPlaying = false;
   videoTagIsPlaying = false;
+  videoTagSeekTimer;
+  videoTagSeekTimeout = false;
 
   videoTagTime = 0;
   videoTagLength = 0;
@@ -138,53 +141,34 @@ export class AppComponent {
     this.videoTagTrack.mediaElement.volume = this.videoTagLevel;
 	}
 
-  setC4Level = () => {
-    console.log(`setC4Level(): ${this.c4Level}`);
-		this.c4GainNode.gain.value = this.c4Level;
-	}
-  setA3Level = () => {
-    console.log(`setA3Level(): ${this.a3Level}`);
-		this.a3GainNode.gain.value = this.a3Level;
-	}
-  setBufferLevel = () => {
-    console.log(`setBufferLevel(): ${this.bufferLevel}`);
-		this.bufferGainNode.gain.value = this.bufferLevel;
-	}
-	setVideoTagLevel = () => {
-    console.log(`setVideoTagLevel(): ${this.videoTagLevel}`);
-		this.videoTagGainNode.gain.value = this.videoTagLevel;
-	}
+  log = (msg) => {
+    console.log(msg);
+  }
 
-  setC4Pan = () => {
-    console.log(`setC4Pan(): ${this.c4Pan}`);
-		this.c4PanNode.pan.value = this.c4Pan;
-	}
-  setA3Pan = () => {
-    console.log(`setA3Pan(): ${this.a3Pan}`);
-    this.a3PanNode.pan.value = this.a3Pan;
-	}
-  setBufferPan = () => {
-    console.log(`setBufferPan(): ${this.bufferPan}`);
-    this.bufferPanNode.pan.value = this.bufferPan;
-	}
-	setVideoTagPan = () => {
-    console.log(`setVideoTagPan(): ${this.videoTagPan}`);
-    this.videoTagPanNode.pan.value = this.videoTagPan;
-	}
+  //-- logic to prevent feedback from video playback controlling seek slider...
+  //
+	setVideoTagTimeDelay = () => {
+    if (!this.videoTagSeekTimeout) {
+      this.videoTagSeekTimeout = true;
+      this.videoTagTrack.mediaElement.pause();
+      this.videoTagSeekTimer = setTimeout(() => {
+        this.videoTagSeekTimeout = false;
+        //-- make sure mouseover doesn't trigger play when seek - 0.0
+        if (this.videoTagTime > 0.0) {
+          if (this.videoTagIsPlaying) {
+            this.videoTagTrack.mediaElement.play();
+          } else {
+            this.videoTagIsPlaying = false;
+            this.playVideoTag();
+          }
+        }
+      }, 4000);
+    }
+  }
 
-  toggleC4Reverb = () => {
-		console.log('toggleC4Reverb()...', this.c4Reverb);
-	}
-  toggleA3Reverb = () => {
-		console.log('toggleA3Reverb()...', this.a3Reverb);
-	}
-  toggleBufferReverb = () => {
-		console.log('toggleBufferReverb()...', this.bufferReverb);
-	}
-
-	setVideoTagTime = () => {
+  setVideoTagTime = () => {
 		this.videoTagTrack.mediaElement.currentTime = this.videoTagTime;
-	}
+  }
 
 
 	playC4 = async () => {
@@ -227,6 +211,7 @@ export class AppComponent {
       }
       this.a3Track.mediaElement.onended = () => {
         console.log('onended()...')
+        this.a3Track.mediaElement.currentTime = 0;
         if (this.a3Reverb) {
           this.a3ReverbNode.disconnect();
         }

@@ -51,14 +51,14 @@
     <div class="audioTagControls">
       <span class="banner1">C4 Tag Controls</span>
       <div class="level">
-        Level: <mat-slider color="primary" min="0" max="1" step="0.05" [(ngModel)]="c4Level" (change)="setC4Level()"></mat-slider> {{c4Level}}
+        Level: <mat-slider color="primary" min="0" max="1" step="0.05" [(ngModel)]="c4Level" (change)="c4GainNode.gain.value = c4Level"></mat-slider> {{c4Level}}
       </div>
       <div class="pan">
-        Pan: <mat-slider color="primary" min="-1.0" max="1.0" step="0.2" [(ngModel)]="c4Pan" (change)="setC4Pan()"></mat-slider> {{c4Pan}}
+        Pan: <mat-slider color="primary" min="-1.0" max="1.0" step="0.2" [(ngModel)]="c4Pan" (change)="c4PanNode.pan.value = c4Pan"></mat-slider> {{c4Pan}}
       </div>
       <div class="play">
         <div class="reverb">
-          Reverb: <mat-slide-toggle color="primary"	[(ngModel)]="c4Reverb" (change)="toggleC4Reverb()"></mat-slide-toggle>
+					Reverb: <mat-slide-toggle color="primary"	[(ngModel)]="c4Reverb"></mat-slide-toggle>
         </div>
         <button class="audioTagButton" mat-mini-fab color="primary" title="Play/Pause..." (click)="playC4()">
           {{c4IsPlaying ? '||' : '>'}}
@@ -69,14 +69,14 @@
     <div class="audioTagControls">
       <span class="banner1">A3 Tag Controls</span>
       <div class="level">
-        Level: <mat-slider color="primary" min="0" max="1" step="0.05" [(ngModel)]="a3Level" (change)="setA3Level()"></mat-slider> {{a3Level}}
+        Level: <mat-slider color="primary" min="0" max="1" step="0.05" [(ngModel)]="a3Level" (change)="a3GainNode.gain.value = a3Level"></mat-slider> {{a3Level}}
       </div>
       <div class="pan">
-        Pan: <mat-slider color="primary" min="-1.0" max="1.0" step="0.2" [(ngModel)]="a3Pan" (change)="setA3Pan()"></mat-slider> {{a3Pan}}
+        Pan: <mat-slider color="primary" min="-1.0" max="1.0" step="0.2" [(ngModel)]="a3Pan" (change)="a3PanNode.pan.value = a3Pan"></mat-slider> {{a3Pan}}
       </div>
       <div class="play">
         <div class="reverb">
-          Reverb: <mat-slide-toggle color="primary"	[(ngModel)]="a3Reverb" (change)="toggleA3Reverb()"></mat-slide-toggle>
+					Reverb: <mat-slide-toggle color="primary"	[(ngModel)]="a3Reverb"></mat-slide-toggle>
         </div>
         <button class="audioTagButton" mat-mini-fab color="primary" title="Play/Pause..." (click)="playA3()">
           {{a3IsPlaying ? '||' : '>'}}
@@ -87,14 +87,14 @@
     <div class="bufferControls">
       <span class="banner1">Audio Buffer Controls</span>
       <div class="level">
-        Level: <mat-slider color="primary" min="0" max="1" step="0.05" [(ngModel)]="bufferLevel" (change)="setBufferLevel()"></mat-slider> {{bufferLevel}}
+        Level: <mat-slider color="primary" min="0" max="1" step="0.05" [(ngModel)]="bufferLevel" (change)="bufferGainNode.gain.value = bufferLevel"></mat-slider> {{bufferLevel}}
       </div>
       <div class="pan">
-        Pan: <mat-slider color="primary" min="-1.0" max="1.0" step="0.2" [(ngModel)]="bufferPan" (change)="setBufferPan()"></mat-slider> {{bufferPan}}
+        Pan: <mat-slider color="primary" min="-1.0" max="1.0" step="0.2" [(ngModel)]="bufferPan" (change)="bufferPanNode.pan.value = bufferPan"></mat-slider> {{bufferPan}}
       </div>
       <div class="play">
         <div class="reverb">
-          Reverb: <mat-slide-toggle color="primary"	[(ngModel)]="bufferReverb" (change)="toggleBufferReverb()"></mat-slide-toggle>
+					Reverb: <mat-slide-toggle color="primary"	[(ngModel)]="bufferReverb"></mat-slide-toggle>
         </div>
         <button class="audioTagButton" mat-mini-fab color="primary" title="Play..." [disabled]="bufferIsPlaying" (click)="playBuffer()">
           &gt;
@@ -105,13 +105,14 @@
     <div class="videoTagControls">
       <span class="banner1">&lt;video&gt; Tag Controls</span>
       <div class="level">
-        Level: <mat-slider color="primary" min="0" max="1" step="0.05" [(ngModel)]="videoTagLevel" (change)="setVideoTagLevel()"></mat-slider> {{videoTagLevel}}
+        Level: <mat-slider color="primary" min="0" max="1" step="0.05" [(ngModel)]="videoTagLevel" (change)="videoTagGainNode.gain.value = videoTagLevel"></mat-slider> {{videoTagLevel}}
       </div>
       <!-- <div class="pan">
         Pan: <mat-slider color="primary" min="-1.0" max="1.0" step="0.2" [(ngModel)]="videoTagPan" (change)="setVideoTagPan()"></mat-slider> {{videoTagPan}}
       </div> -->
       <div class="seek">
-        Seek: <mat-slider color="primary" min="0" [max]="videoTagLength" step="1" [(ngModel)]="videoTagTime" (change)="setVideoTagTime()"></mat-slider> {{videoTagTime.toFixed(1)}}
+        Seek: <mat-slider #seekSlider color="primary" min="0" [max]="videoTagLength" step="1" [(ngModel)]="videoTagTime"
+				 				(mouseover)="setVideoTagTimeDelay()" (change)="setVideoTagTime()"></mat-slider> {{videoTagTime.toFixed(1)}}
       </div>
       <div class="play">
         <button class="audioTagButton" mat-mini-fab color="primary" title="Play/Pause..." (click)="playVideoTag()">
